@@ -610,7 +610,7 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
   .hero-subheadline{max-width:100%}
   .hero-overlay{background:linear-gradient(to right,rgba(6,10,20,.92) 0%,rgba(6,10,20,.80) 55%,rgba(6,10,20,.65) 100%)}
   .hero-badge{font-size:.7rem;padding:6px 12px}
-  .hero-headline{font-size:1.6rem;line-height:1.15}
+  .hero-headline{font-size:2rem;line-height:1.1}
   .hero-subheadline{font-size:.875rem;line-height:1.6}
   .hero-buttons{gap:10px}
   .btn-primary{padding:12px 20px;font-size:.875rem}
@@ -1341,7 +1341,7 @@ window.addEventListener('load', function(){
     .to('.hero-subheadline',{ opacity:1, y:0, duration:.6 },'-=.3')
     .to('.hero-buttons',{ opacity:1, y:0, duration:.5 },'-=.3')
     .to('.hero-creds',{ opacity:1, y:0, duration:.4 },'-=.2')
-    .to('.hero-bg-photo',{ opacity:1, duration:1.2, ease:'power2.out' },'-=.8');
+    .to('.hero-bg-photo',{ opacity: isMobile ? 0.32 : 1, duration:1.2, ease:'power2.out' },'-=.8');
 });
 
 // Parallax hero photo
