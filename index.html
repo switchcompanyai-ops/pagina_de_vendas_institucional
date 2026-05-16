@@ -9,9 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<link rel="preload" as="image" href="assets/images/foto_sessao1_hero/upscalemedia-transformed%20(3).png">
 
 <style>
 /* ================================================================
@@ -638,6 +636,11 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
   .results-right{padding-top:0}
   .footer-inner{grid-template-columns:1fr;gap:40px}
   .cta-micros{flex-direction:column;gap:8px}
+  /* fix hero text cutoff */
+  .hero-content{width:100%;transform:none}
+  /* performance: remove GPU-heavy effects on mobile */
+  .glow-orb{display:none}
+  nav,.glass-card,.process-card,.mobile-menu{backdrop-filter:none;-webkit-backdrop-filter:none}
 }
 </style>
 </head>
@@ -679,7 +682,7 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
   <canvas id="hero-canvas"></canvas>
 
   <div class="hero-bg-photo">
-    <img src="assets/images/foto_sessao1_hero/upscalemedia-transformed%20(3).png" alt="Daniel Ayres — Fundador da Switch Company" loading="eager">
+    <img src="assets/images/foto_sessao1_hero/upscalemedia-transformed%20(3).png" alt="Daniel Ayres — Fundador da Switch Company" loading="eager" fetchpriority="high">
   </div>
   <div class="hero-overlay"></div>
 
@@ -1026,7 +1029,7 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
       <!-- Coluna direita: foto -->
       <div class="about-right" data-reveal>
         <div class="about-photo-frame">
-          <img src="assets/images/foto_sobre_daniel_ayres/upscalemedia-transformed%20(4).png" alt="Daniel Ayres">
+          <img src="assets/images/foto_sobre_daniel_ayres/upscalemedia-transformed%20(4).png" alt="Daniel Ayres" loading="lazy">
           <div class="about-photo-glow"></div>
         </div>
       </div>
@@ -1247,9 +1250,12 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
 <!-- ================================================================
      JAVASCRIPT
 ================================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
 (function(){
 'use strict';
+var isMobile = window.innerWidth < 768;
 
 /* ---- CAROUSEL ---- */
 function startCarousels(){
@@ -1280,7 +1286,7 @@ function resizeCanvas(){
 }
 function initPts(){
   pts = [];
-  var n = Math.min(100, Math.floor(canvas.width * canvas.height / 14000));
+  var n = isMobile ? 18 : Math.min(80, Math.floor(canvas.width * canvas.height / 14000));
   for(var i = 0; i < n; i++){
     pts.push({
       x:  Math.random() * canvas.width,
@@ -1295,6 +1301,7 @@ function initPts(){
   }
 }
 function drawPts(){
+  if(document.hidden){ requestAnimationFrame(drawPts); return; }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   frame++;
   pts.forEach(function(p){
@@ -1380,6 +1387,7 @@ gsap.from('.cta-section .container > *', {
 
 /* ---- CTA CANVAS — stick-robot flying animation ---- */
 (function(){
+  if(isMobile) return;
   var canvas = document.getElementById('cta-canvas');
   if(!canvas) return;
   var ctx = canvas.getContext('2d');
@@ -1485,6 +1493,7 @@ gsap.from('.cta-section .container > *', {
   }
 
   function tick(){
+    if(document.hidden){ requestAnimationFrame(tick); return; }
     ctx.clearRect(0, 0, W, H);
     robots.forEach(function(r, i){
       r.x += r.speed;
