@@ -372,7 +372,7 @@ nav {
   background:radial-gradient(ellipse 55% 55% at 72% 50%,rgba(74,158,255,.07),transparent 70%);
 }
 .about-2col {
-  display:grid; grid-template-columns:50% 50%; gap:48px; align-items:center;
+  display:grid; grid-template-columns:50% 50%; gap:48px; align-items:stretch;
 }
 .about-left { display:flex; flex-direction:column; gap:24px; }
 .about-eyebrow-new { font-family:'Inter',sans-serif; font-weight:500; font-size:.72rem; text-transform:uppercase; letter-spacing:4px; color:var(--accent-blue); }
@@ -385,19 +385,20 @@ nav {
 .about-cred-new:first-child { border-top:1px solid rgba(255,255,255,.06); }
 .about-cred-new .ck { color:var(--accent-blue); flex-shrink:0; }
 .about-cred-new span { font-family:'Inter',sans-serif; font-weight:500; font-size:.95rem; }
-.about-right { position:relative; display:flex; justify-content:center; align-items:center; }
+.about-right { position:relative; display:flex; align-items:stretch; }
 .about-photo-wrap {
   position:relative; width:100%; padding-left:32px;
+  display:flex; flex-direction:column;
 }
 .about-photo-frame {
-  position:relative; z-index:1;
+  position:relative; z-index:1; flex:1;
   border-radius:20px; overflow:hidden;
   border:1px solid rgba(74,158,255,.22);
   box-shadow:0 0 0 1px rgba(74,158,255,.08), 0 40px 80px rgba(0,0,0,.65), 0 0 80px rgba(74,158,255,.1);
   width:100%;
 }
 .about-photo-frame img {
-  width:100%; height:540px;
+  width:100%; height:100%; min-height:520px;
   object-fit:cover; object-position:center top;
   display:block;
 }
@@ -656,9 +657,10 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
   .manifesto-desc{font-size:1rem}
   /* seção 5 sobre */
   .about-2col{grid-template-columns:1fr;gap:40px}
-  .about-right{display:flex}
-  .about-photo-wrap{padding-left:24px}
-  .about-photo-frame img{height:340px}
+  .about-right{display:flex;align-items:center}
+  .about-photo-wrap{padding-left:24px;height:auto}
+  .about-photo-frame{flex:none}
+  .about-photo-frame img{height:340px;min-height:unset}
   .about-ai-bubbles{width:40px}
   .about-ai-bubble{width:40px;height:40px}
   .about-ai-bubble img{width:20px;height:20px}
@@ -1075,7 +1077,10 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
 
             <!-- Claude -->
             <div class="about-ai-bubble" title="Claude">
-              <img src="https://cdn.simpleicons.org/anthropic/ffffff" alt="Claude" onerror="this.closest('.about-ai-bubble').style.display='none'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.5V6M12 18V21.5M2.5 12H6M18 12H21.5M5.4 5.4L7.8 7.8M16.2 16.2L18.6 18.6M18.6 5.4L16.2 7.8M7.8 16.2L5.4 18.6" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="3" fill="white"/>
+              </svg>
             </div>
 
             <!-- Gemini -->
