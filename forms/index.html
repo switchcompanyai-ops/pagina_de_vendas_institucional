@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário para Reunião — Switch Company</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080b10;
+    --surface: rgba(255,255,255,0.035);
+    --surface-hover: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.08);
+    --border-focus: rgba(99,179,237,0.5);
+    --text: #f0f4f8;
+    --text-muted: rgba(240,244,248,0.45);
+    --text-soft: rgba(240,244,248,0.7);
+    --accent: #63b3ed;
+    --accent2: #76e4b4;
+    --danger: #fc8181;
+    --radius-sm: 8px;
+    --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% -10%, rgba(26,54,93,0.55) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 90%, rgba(12,74,110,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(8,11,16,0) 0%, #080b10 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 32px 32px;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .logo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    margin-bottom: 1.5rem;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .logo-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.75rem, 5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #f0f4f8 30%, rgba(99,179,237,0.85) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .form-card {
+    background: rgba(13,17,23,0.8);
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+      0 0 0 0.5px rgba(255,255,255,0.04) inset,
+      0 40px 80px rgba(0,0,0,0.5);
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .form-group { margin-bottom: 1.5rem; animation: fadeUp 0.5s ease both; }
+  .form-group:nth-child(1) { animation-delay: 0.15s; }
+  .form-group:nth-child(2) { animation-delay: 0.2s; }
+  .form-group:nth-child(3) { animation-delay: 0.25s; }
+  .form-group:nth-child(4) { animation-delay: 0.3s; }
+  .form-group:nth-child(5) { animation-delay: 0.35s; }
+  .form-group:nth-child(6) { animation-delay: 0.4s; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-soft);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  label .optional {
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-left: 4px;
+  }
+
+  input[type="text"], textarea, select {
+    width: 100%;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input[type="text"]::placeholder, textarea::placeholder { color: var(--text-muted); }
+
+  input[type="text"]:hover, textarea:hover, select:hover {
+    border-color: rgba(255,255,255,0.14);
+    background: var(--surface-hover);
+  }
+
+  input[type="text"]:focus, textarea:focus, select:focus {
+    border-color: var(--border-focus);
+    background: rgba(99,179,237,0.04);
+    box-shadow: 0 0 0 3px rgba(99,179,237,0.08);
+  }
+
+  textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+
+  .select-wrap { position: relative; }
+
+  .select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--text-muted);
+    pointer-events: none;
+    transition: border-top-color var(--transition);
+  }
+
+  .select-wrap:focus-within::after { border-top-color: var(--accent); }
+  select { padding-right: 40px; cursor: pointer; }
+  select option { background: #0d1117; color: var(--text); }
+
+  .checkbox-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .checkbox-item {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    cursor: pointer;
+    transition: all var(--transition);
+    user-select: none;
+  }
+
+  .checkbox-item:hover { background: var(--surface-hover); border-color: rgba(255,255,255,0.14); }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 16px; height: 16px; min-width: 16px;
+    accent-color: var(--accent);
+    cursor: pointer; margin: 0; padding: 0;
+  }
+
+  .checkbox-item span { font-size: 13.5px; color: var(--text-soft); line-height: 1.3; }
+  .checkbox-item:has(input:checked) { background: rgba(99,179,237,0.07); border-color: rgba(99,179,237,0.3); }
+  .checkbox-item:has(input:checked) span { color: var(--text); }
+
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
+
+  .radio-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all var(--transition);
+    user-select: none;
+  }
+
+  .radio-item:hover { background: var(--surface-hover); border-color: rgba(255,255,255,0.14); }
+
+  .radio-item input[type="radio"] {
+    width: 16px; height: 16px; min-width: 16px;
+    accent-color: var(--accent);
+    cursor: pointer; margin: 0; padding: 0;
+  }
+
+  .radio-item span { font-size: 14px; color: var(--text-soft); }
+  .radio-item:has(input:checked) { background: rgba(99,179,237,0.07); border-color: rgba(99,179,237,0.3); }
+  .radio-item:has(input:checked) span { color: var(--text); font-weight: 500; }
+
+  .conditional {
+    overflow: hidden;
+    max-height: 0; opacity: 0;
+    transform: translateY(-6px);
+    transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, transform 0.3s ease, margin 0.3s ease;
+    margin-top: 0;
+  }
+
+  .conditional.visible { max-height: 600px; opacity: 1; transform: translateY(0); margin-top: 1.5rem; }
+
+  .divider { height: 0.5px; background: var(--border); margin: 1.75rem 0; }
+
+  .btn-submit {
+    width: 100%;
+    padding: 15px 24px;
+    background: linear-gradient(135deg, #1a56db 0%, #1e90c0 100%);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all var(--transition);
+    position: relative; overflow: hidden;
+    margin-top: 0.5rem;
+  }
+
+  .btn-submit::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(26,86,219,0.35); }
+  .btn-submit:hover::before { opacity: 1; }
+  .btn-submit:active { transform: translateY(0); box-shadow: none; }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .field-error { font-size: 12px; color: var(--danger); margin-top: 6px; display: none; }
+  .field-error.show { display: block; }
+  input.error, textarea.error, select.error { border-color: rgba(252,129,129,0.5); }
+
+  .success-screen { display: none; text-align: center; padding: 2rem 0; animation: fadeUp 0.5s ease both; }
+  .success-screen.show { display: block; }
+
+  .success-icon {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: rgba(118,228,180,0.1);
+    border: 0.5px solid rgba(118,228,180,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+
+  .success-icon svg {
+    width: 32px; height: 32px;
+    stroke: var(--accent2); stroke-width: 2.5;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  .success-screen h2 { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--text); }
+  .success-screen p { color: var(--text-muted); font-size: 15px; line-height: 1.6; max-width: 340px; margin: 0 auto; }
+
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  @media (max-width: 600px) {
+    body { padding: 1.5rem 1rem; align-items: flex-start; }
+    .form-card { padding: 1.75rem 1.25rem; border-radius: 16px; }
+    .checkbox-group { grid-template-columns: 1fr; }
+    .header { margin-bottom: 1.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="header">
+    <div class="logo-badge"><span class="dot"></span>Switch Company AI</div>
+    <h1>Formulário para reunião</h1>
+    <p>Preencha as informações abaixo antes da nossa reunião. Leva menos de 2 minutos.</p>
+  </div>
+
+  <div class="form-card" id="formCard">
+    <form id="mainForm" novalidate>
+      <input type="text" name="_gotcha" style="display:none" />
+      <input type="hidden" name="_subject" value="Nova pré-qualificação — Switch Company" />
+
+      <div class="form-group">
+        <label for="nome">Seu primeiro nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Ex: Rafael" autocomplete="given-name" />
+        <div class="field-error" id="err-nome">Por favor, informe seu nome.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="segmento">Segmento / área de atuação</label>
+        <input type="text" id="segmento" name="segmento" placeholder="Ex: Clínica odontológica, e-commerce, consultoria…" />
+        <div class="field-error" id="err-segmento">Por favor, informe seu segmento.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="servico">O que você deseja com a Switch Company?</label>
+        <div class="select-wrap">
+          <select id="servico" name="servico">
+            <option value="">Selecione uma opção…</option>
+            <option value="agentes">Agentes de IA</option>
+            <option value="automacoes">Automações</option>
+            <option value="webapps">Apps e sistemas web</option>
+          </select>
+        </div>
+        <div class="field-error" id="err-servico">Selecione uma opção para continuar.</div>
+      </div>
+
+      <div class="conditional" id="cond-agentes">
+        <div class="form-group" style="margin-bottom:0">
+          <label>Quais funções o agente deverá ter? <span style="color:var(--text-muted);font-size:12px">(pode marcar mais de uma)</span></label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="funcao" value="Atendimento" /><span>Atendimento</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="funcao" value="Pré-qualificação" /><span>Pré-qualificação</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="funcao" value="Agendamento" /><span>Agendamento</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="funcao" value="Venda" /><span>Venda</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="funcao" value="Gestão de clientes" /><span>Gestão de clientes</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="funcao" value="Outros" /><span>Outros</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="form-group">
+        <label for="ideia">Conte-nos um pouco sobre a sua ideia</label>
+        <textarea id="ideia" name="ideia" placeholder="Descreva o que você imagina, o problema que quer resolver ou como pretende usar a tecnologia…"></textarea>
+        <div class="field-error" id="err-ideia">Por favor, descreva brevemente sua ideia.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="arroba">@ da sua empresa ou perfil <span class="optional">(opcional)</span></label>
+        <input type="text" id="arroba" name="arroba" placeholder="@suaempresa" />
+      </div>
+
+      <div class="conditional" id="cond-orcamento-agentes">
+        <div class="form-group" style="margin-bottom:0">
+          <label>Qual orçamento médio disponibilizado?</label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="orcamento" value="R$ 700 a R$ 1.500" /><span>R$ 700 a R$ 1.500</span></label>
+            <label class="radio-item"><input type="radio" name="orcamento" value="R$ 1.501 a R$ 2.500" /><span>R$ 1.501 a R$ 2.500</span></label>
+            <label class="radio-item"><input type="radio" name="orcamento" value="R$ 2.501 a R$ 3.500" /><span>R$ 2.501 a R$ 3.500</span></label>
+            <label class="radio-item"><input type="radio" name="orcamento" value="R$ 3.500+" /><span>R$ 3.500+</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="conditional" id="cond-orcamento-webapps">
+        <div class="form-group" style="margin-bottom:0">
+          <label>Qual orçamento médio disponibilizado?</label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="orcamento" value="R$ 3.000 a R$ 5.000" /><span>R$ 3.000 a R$ 5.000</span></label>
+            <label class="radio-item"><input type="radio" name="orcamento" value="R$ 5.001 a R$ 8.000" /><span>R$ 5.001 a R$ 8.000</span></label>
+            <label class="radio-item"><input type="radio" name="orcamento" value="R$ 8.001 a R$ 12.000" /><span>R$ 8.001 a R$ 12.000</span></label>
+            <label class="radio-item"><input type="radio" name="orcamento" value="R$ 12.000+" /><span>R$ 12.000+</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <button type="submit" class="btn-submit" id="btnSubmit">Enviar pré-qualificação →</button>
+      </div>
+    </form>
+
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2>Tudo certo!</h2>
+      <p>Suas informações foram registradas. Vejo você na reunião 👋</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const servico = document.getElementById('servico');
+  const condAgentes = document.getElementById('cond-agentes');
+  const condOrcAgentes = document.getElementById('cond-orcamento-agentes');
+  const condOrcWebApps = document.getElementById('cond-orcamento-webapps');
+
+  function updateConditionals() {
+    const val = servico.value;
+    condAgentes.classList.toggle('visible', val === 'agentes');
+    condOrcAgentes.classList.toggle('visible', val === 'agentes');
+    condOrcWebApps.classList.toggle('visible', val === 'webapps');
+    if (val !== 'agentes' && val !== 'webapps') {
+      document.querySelectorAll('input[name="orcamento"]').forEach(r => r.checked = false);
+    }
+  }
+
+  servico.addEventListener('change', updateConditionals);
+
+  function showError(id, show) {
+    const el = document.getElementById('err-' + id);
+    if (el) el.classList.toggle('show', show);
+  }
+
+  function clearError(input, id) {
+    input.addEventListener('input', () => {
+      showError(id, false);
+      input.classList.remove('error');
+    }, { once: true });
+  }
+
+  function validateForm() {
+    let valid = true;
+
+    const nome = document.getElementById('nome');
+    if (!nome.value.trim()) { showError('nome', true); nome.classList.add('error'); clearError(nome, 'nome'); valid = false; }
+
+    const segmento = document.getElementById('segmento');
+    if (!segmento.value.trim()) { showError('segmento', true); segmento.classList.add('error'); clearError(segmento, 'segmento'); valid = false; }
+
+    if (!servico.value) {
+      showError('servico', true); servico.classList.add('error');
+      servico.addEventListener('change', () => { showError('servico', false); servico.classList.remove('error'); }, { once: true });
+      valid = false;
+    }
+
+    const ideia = document.getElementById('ideia');
+    if (!ideia.value.trim()) { showError('ideia', true); ideia.classList.add('error'); clearError(ideia, 'ideia'); valid = false; }
+
+    return valid;
+  }
+
+  document.getElementById('mainForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      const firstError = document.querySelector('.field-error.show');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const btn = document.getElementById('btnSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    try {
+      const response = await fetch('https://formspree.io/f/xkoawjrp', {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        document.getElementById('mainForm').style.display = 'none';
+        document.getElementById('successScreen').classList.add('show');
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Enviar pré-qualificação →';
+        alert('Erro ao enviar. Tente novamente.');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Enviar pré-qualificação →';
+      alert('Erro de conexão. Tente novamente.');
+    }
+  });
+</script>
+
+</body>
+</html>
