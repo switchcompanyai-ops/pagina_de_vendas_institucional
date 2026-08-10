@@ -259,7 +259,7 @@ nav {
 .section-title { font-family:'Syne',sans-serif; font-weight:700; font-size:clamp(2rem,4vw,3.25rem); line-height:1.1; margin-bottom:16px; }
 .section-subtitle { font-family:'Inter',sans-serif; font-weight:300; font-size:1.05rem; color:var(--text-secondary); max-width:560px; margin:0 auto; line-height:1.7; }
 
-.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; position:relative; z-index:1; }
+.services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; position:relative; z-index:1; }
 .service-card { padding:40px 32px; display:flex; flex-direction:column; gap:20px; }
 .service-card.featured { border-color:rgba(74,158,255,.25); background:rgba(74,158,255,.04); }
 .service-card.featured::after {
@@ -719,7 +719,7 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
   <canvas id="hero-canvas"></canvas>
 
   <div class="hero-bg-photo">
-    <img src="assets/images/foto_sessao1_hero/upscalemedia-transformed%20(3).png" alt="Daniel Ayres — Fundador da Switch Company" loading="eager" fetchpriority="high">
+    <img src="assets/images/foto_sessao1_hero/ChatGPT%20Image%2010%20de%20ago.%20de%202026%2C%2011_26_14.png" alt="Daniel Ayres — Fundador da Switch Company" loading="eager" fetchpriority="high">
   </div>
   <div class="hero-overlay"></div>
 
@@ -734,9 +734,9 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
           Automação · Agentes de IA · SaaS
         </div>
         <h1 class="hero-headline">
-          A <span class="hero-shimmer">automação <br> certa</span> para a sua empresa está aqui.        </h1>
+          O <span class="hero-shimmer">software <br> certo</span> para a sua empresa está aqui.</h1>
         <p class="hero-subheadline">
-          Desenvolvemos automações sob medida, agentes de inteligência artificial e aplicações completas, para que o seu negócio opere com mais inteligência, menos esforço e zero retrabalho.
+          Desenvolvemos plataformas sob medida, agentes de inteligência artificial e aplicações completas, para que o seu negócio opere com mais inteligência, menos esforço e zero retrabalho.
         </p>
         <div class="hero-buttons">
           <a href="https://wa.me/5531983857304" class="btn-primary">Fale com a gente <span class="btn-arrow">→</span></a>
@@ -765,7 +765,7 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
   <div class="container">
     <div class="section-header">
       <p class="eyebrow" data-reveal>Nossas soluções</p>
-      <h2 class="section-title" data-reveal>Tecnologia que trabalha<br>por você. Em três frentes.</h2>
+      <h2 class="section-title" data-reveal>Tecnologia que trabalha<br>por você. Em quatro frentes.</h2>
       <p class="section-subtitle" data-reveal>Cada solução é construída do zero, pensada para a realidade do seu negócio. Sem templates. Sem solução genérica.</p>
     </div>
     <div class="services-grid">
@@ -901,6 +901,41 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
           <span class="pill-tag">Sistemas</span>
           <span class="pill-tag">Plataformas</span>
           <span class="pill-tag">Web apps</span>
+        </div>
+      </div>
+
+      <!-- Card 4 — Cybersecurity: cadeado aberto sendo fechado -->
+      <div class="glass-card service-card" data-reveal>
+        <div class="card-illus">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Perna esquerda do gancho (sobe — lock está aberto) -->
+            <line x1="35" y1="52" x2="35" y2="28" pathLength="1" class="ap" stroke-width="2" style="animation-delay:0s"/>
+            <!-- Arco superior (forma o U aberto) -->
+            <path d="M35,28 Q35,14 50,14 Q65,14 65,28" pathLength="1" class="ap" stroke-width="2" style="animation-delay:.5s"/>
+            <!-- Corpo do cadeado -->
+            <rect x="20" y="48" width="60" height="46" rx="8" pathLength="1" class="ap" stroke-width="1.8" style="animation-delay:1.1s"/>
+            <!-- Placa interna -->
+            <rect x="30" y="58" width="40" height="28" rx="5" pathLength="1" class="ap" stroke-width="1" style="animation-delay:1.7s"/>
+            <!-- Perna direita FECHA (desce — momento do fechamento) -->
+            <line x1="65" y1="28" x2="65" y2="52" pathLength="1" class="ap" stroke-width="2" style="animation-delay:2.2s"/>
+            <!-- Buraco da fechadura -->
+            <circle cx="50" cy="70" r="7" pathLength="1" class="ap" stroke-width="1.5" style="animation-delay:2.8s"/>
+            <!-- Pino da fechadura (fill) -->
+            <circle cx="50" cy="70" r="3" class="af" fill="#4a9eff" style="animation-delay:3.3s"/>
+            <!-- Slot inferior da fechadura (fill) -->
+            <rect x="47.5" y="73" width="5" height="9" rx="2.5" class="af" fill="#4a9eff" style="animation-delay:3.3s"/>
+            <!-- Indicadores de segurança nas laterais -->
+            <circle cx="34" cy="68" r="2.5" class="af" fill="#4a9eff" style="animation-delay:3.55s"/>
+            <circle cx="66" cy="68" r="2.5" class="af" fill="#4a9eff" style="animation-delay:3.7s"/>
+          </svg>
+        </div>
+        <h3 class="service-title">Cybersecurity</h3>
+        <p class="service-desc">Protegemos sistemas, dados e operações contra ameaças digitais. Auditamos vulnerabilidades, endurecemos infraestruturas e mantemos sua empresa em conformidade com as melhores práticas de segurança.</p>
+        <div class="service-tags">
+          <span class="pill-tag">Pentest</span>
+          <span class="pill-tag">Auditoria</span>
+          <span class="pill-tag">Conformidade</span>
+          <span class="pill-tag">Proteção</span>
         </div>
       </div>
 
@@ -1051,7 +1086,7 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
         <h2 class="about-title-new">Prazer, sou o<br><span class="gradient-text">Daniel Ayres.</span></h2>
         <div class="about-deco-line"></div>
         <div class="about-texts">
-          <p class="about-text-new">Sou gestor de automações e desenvolvedor de soluções em IA. Fundei a Switch Company com uma missão clara: entregar tecnologia que realmente funciona na prática, não só no papel.</p>
+          <p class="about-text-new">Sou desenvolvedor e atualmente curso Cybersecurity. Fundei a Switch Company com uma missão clara: entregar tecnologia que realmente funciona na prática, não só no papel.</p>
           <p class="about-text-new">Com formação no maior treinamento de automações e inteligência artificial do país e dezenas de projetos entregues em diferentes nichos, desenvolvo cada solução com atenção total à realidade do seu negócio.</p>
         </div>
         <div class="about-creds-new">
@@ -1103,7 +1138,7 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
           </div>
 
           <div class="about-photo-frame">
-            <img src="assets/images/foto_sobre_daniel_ayres/upscalemedia-transformed%20(4).png" alt="Daniel Ayres" loading="lazy">
+            <img src="assets/images/foto_sobre_daniel_ayres/WhatsApp%20Image%202026-08-10%20at%2011.18.43%20(1).jpeg" alt="Daniel Ayres" loading="lazy">
             <div class="about-photo-glow"></div>
           </div>
 
@@ -1219,7 +1254,7 @@ footer { background:#040710; border-top:1px solid rgba(255,255,255,.06); padding
   <div class="glow-orb cta-glow"></div>
   <div class="container">
     <h2 class="cta-title" data-reveal>
-      Pronto para automatizar o que está <span class="gradient-text">travando o seu crescimento?</span>
+      Pronto para desenvolver o que está <span class="gradient-text">travando o seu crescimento?</span>
     </h2>
     <p class="cta-subtitle" data-reveal>Conversa inicial sem compromisso. A gente entende o seu negócio e te mostra o que é possível.</p>
     <div class="cta-wrap" data-reveal>
